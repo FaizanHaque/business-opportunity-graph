@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS entity_community;
 DROP TABLE IF EXISTS entity_zipcode;
 DROP TABLE IF EXISTS entity_blockgroup;
 DROP TABLE IF EXISTS entity_business;
+DROP TABLE IF EXISTS entity_business_location;
 DROP TABLE IF EXISTS entity_relationships;
 
 /* CREATE TABLES */
@@ -89,7 +90,15 @@ CREATE TABLE entity_blockgroup (
 );
 
 -- ENTITY: business
-CREATE TABLE entity_business (
+CREATE TABLE entity_business(
+    id INTEGER,
+    name TEXT,
+    num_locations INTEGER,
+    categories TEXT[]
+);
+
+-- ENTITY: business location
+CREATE TABLE entity_business_location (
     id INTEGER,
     name TEXT,
     url TEXT,
@@ -125,4 +134,5 @@ GRANT ALL PRIVILEGES ON TABLE entity_community TO swhoyle, fahaque, isgonzal, fc
 GRANT ALL PRIVILEGES ON TABLE entity_zipcode TO swhoyle, fahaque, isgonzal, fchavezsosa;
 GRANT ALL PRIVILEGES ON TABLE entity_blockgroup TO swhoyle, fahaque, isgonzal, fchavezsosa;
 GRANT ALL PRIVILEGES ON TABLE entity_business TO swhoyle, fahaque, isgonzal, fchavezsosa;
+GRANT ALL PRIVILEGES ON TABLE entity_business_locations TO swhoyle, fahaque, isgonzal, fchavezsosa;
 GRANT ALL PRIVILEGES ON TABLE entity_relationships TO swhoyle, fahaque, isgonzal, fchavezsosa;

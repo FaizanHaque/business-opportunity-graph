@@ -117,7 +117,7 @@ ORDER BY sbg.ctblockgroup ASC;
 /* =============================
    ENTITY: business
 ============================= */
-INSERT INTO entity_business (
+INSERT INTO entity_business_location (
     id, name, url, address, city, zip,
     latitude, longitude, blockgroup, categories,
     avg_rating, franchise, confidence, reasoning, geom
@@ -138,5 +138,15 @@ SELECT
     confidence,
     reasoning,
     geom
-FROM nourish.public.ca_businesses_with_ai_franchise
+FROM ca_businesses_with_ai_franchise
 LIMIT 2000;
+
+
+INSERT INTO entity_business (name, num_locations, categories)
+SELECT
+    b.name,
+    COUNT(*) AS num_locations, -- Number of locations
+    ARRAY_AGG(DISTINCT c.category) AS categories -- Unique set of categories (combined from locations)
+FROM entity_business b
+LEFT JOIN LATERAL unnest(b.categories) AS c(category) ON TRUE
+GROUP BY b.name;
